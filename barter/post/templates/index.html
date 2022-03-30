@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Barter</title>
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body class="vh-100">
+
+    <header class="d-flex align-items-center justify-content-center" style="background-color: #1D4365; ">
+        <div class="header d-flex  align-items-center justify-content-center ">
+            <div class="d-flex align-itmes-center justify-content-center">
+                <a class="d-flex align-itmes-center justify-content-center"
+                    style="text-decoration: none; color: white; " href={% url 'home' %}>
+                    <img class="logo-image " style="width: 160px; height: 100px;" src="{% static 'images/logo.png' %}"
+                        alt="logo">
+                    <p class="d-inline pt-4 ">Barter</p>
+                </a>
+
+            </div>
+
+        </div>
+    </header>
+    <main>
+        <p style="text-align: right; margin-right: 5%; color: #1d4365; font-size: 1.5em;"><b><a href={% url 'login'
+                    %}>Log In</a> | <a href={% url 'signup' %}>Sign Up</a></b></p>
+
+        <div class="d-flex flex-column">
+            <div class="shadow-sm" style="background-color: #fcf8f8;">
+                <div class="d-flex" style=" width:80%; margin: auto; padding: 2%;">
+                    <div class="card" style="width: 45%; background-color: inherit; border: none;margin-top: 5%;">
+                        <h2 style="color: red; text-align: center;">Welcome to Barter</h2>
+                        <p style="color: blue; font-size: 1.5em;text-align: justify;">Hi user, welcome to barter, We are
+                            here to help you find whatever you need in order to exchange, to get started you may have to
+                            <a href="{% url 'signup' %}" style="color:rgb(23, 3, 70)">create an account.</a>
+                        </p>
+                    </div>
+                    <img src="{% static 'images/barter1.jpg' %}" alt="barter exchange image" width="45%" class="shadow"
+                        style="margin-left: 10%; border-radius: 10%;">
+                </div>
+            </div>
+            <div class="d-flex" style="margin: 4% 0px;">
+                <div class="d-flex" style="width: 80%; margin: auto;">
+                    <img src="{% static 'images/barter2.jpg' %}" alt="barter exchange image" width="65%"
+                        style="border: 1px solid black; border-radius: 6%;">
+                    <div class="card"
+                        style="width: 100%; background-color: #fcf8f8; border: none;margin-top: 0%;margin-left: 6%; padding: 2%; border-radius: 5%;">
+                        <p style="color: blue; font-size: 1.5em;text-align: justify;">
+
+                            Barter is an act of trading any
+                            good or services between two or more parties without the use of money --or a monetary
+                            medium, such as credit card.
+
+
+                        </p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-light d-block p-2 px-5  mx-5">
+            <h2 class="mb-3" style="color: red; text-align: center;">Terms and sevices</h2>
+            <ul style="color: blue; font-size: 1rem;text-align: justify;">
+                <li>
+                    After the two parties agree on an exchange, Acceptor’s email and phone number will be sent for
+                    the offer
+                    provider. Hence the user should agree on exposing their contact information.
+                </li>
+                <li>
+                    After the user deletes his/her account, there is no way to recover the account. The only way is to
+                    create
+                    the same account with the same information.
+                </li>
+                <li>
+                    There may be some advertisement without the will of the user.
+                </li>
+                <li>
+                    When creating an account, verification email will be sent to the user on the email account
+                    registered.
+                </li>
+            </ul>
+
+
+
+
+
+
+
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
+{% endblock stylesheets %}
+
+{% block main_content %}
+
+<div class="justify-content-center">
+    <div class="row justify-content-center g-0">
+        <div class="col-md-5">
+            <div class="card px-1 pt-4 pb-2 shadow">
+                <div class="card-title d-flex justify-content-center">
+                    {% if is_create %}
+                    <h1> Create a post</h1>
+                    {% else %}
+                    <h1>Edit your post</h1>
+                    {% endif %}
+                </div>
+                <div class="card-body  d-flex justify-content-center">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div class="category m-4">
+                                <label class="me-2" for="category  ">Category: </label>
+                                <select name="category" required id="category">
+                                    <option selected value="{{ post.category }}">{{ post.category|capfirst}}</option>
+                                    {% for value, name in post.CATEGORIES %}
+                                    <option value="{{value}}">{{name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="commodity_name m-4">
+                                <input class="form-control" type="text" name="commodity_name" maxlength="50" required
+                                    id="commodity_name" value="{{ post.commodity_name }}" placeholder="Commodity Name">
+                            </div>
+
+                            <div class="description m-4">
+                                <textarea placeholder="Write some description..." name="description" cols="40" rows="10"
+                                    maxlength="500" required id="description">{{post.description}}</textarea>
+                            </div>
+
+                            <div class="image m-4">
+                                {% if post.image %}
+                                <img src="{{ post.image.url }}" id="post_image" alt="post image" class="image shadow"
+                                    width="100%">
+                                {% endif %}
+                                <br><br>
+                                <input type="file" name="image" accept="image/*" required id="input_image">
+                            </div>
+                            <div class="button">
+                                {% if is_create %}
+                                <input class="btn btn-success" type="submit" value="Post" id="submit">
+                                {% else %}
+                                <input class="btn btn-success" type="submit" value="Edit" id="submit">
+                                {% endif %}
+                            </div>
+                            {% csrf_token %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main_content %}
+
+
+{% block scripts %}
+<script>
+    let input_image = document.getElementById('input_image');
+    let post_image = document.getElementById('post_image');
+
+    post_image.addEventListener('click', () => {
+        input_image.click();
+    })
+
+    input_image.addEventListener('change', () => {
+        let reader = new FileReader();
+
+        reader.readAsDataURL(input_image.files[0]);
+
+        reader.onload = function () {
+            post_image.src = reader.result;
+        };
+    })
+</script>
+
+{% endblock scripts %}

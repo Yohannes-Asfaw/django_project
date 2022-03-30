@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block stylesheets %}
+<style>
+    #input_icon:hover {
+        cursor: pointer;
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block main_content %}
+
+<div class="row d-flex justify-content-center g-0">
+    <div class="col col-md-6 col-lg-5 col-xl-3 ">
+
+        <div class="position-fixed mt-2">
+
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card bg-light shadow-lg p-4 mb-4">
+                    <div class="d-flex flex-column justify-content-center align-items-center " id="input_icon">
+                        <img class="rounded-circle" width="120px" height="105px" id="profile_picture"
+                            src="{{ request.user.profile_picture.url }}" alt="Profile picture">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                        </svg>
+
+                        <input id='input_image' type="file" name="profile_picture" style="display: none;"
+                            accept="image/png, image/jpeg"> <!-- the button which opens the file open-->
+                    </div>
+                </div>
+
+                <div class="card p-3 bg-light shadow-lg">
+
+                    <h3 class="mt-3 mb-3 ms-3">Edit Profile</h3>
+
+                    <div class=" ms-5 mb-2 me-3">
+                        <input class="form-control" type="text" name="fullname" id="fullname"
+                            value="{{ request.user.fullname|capfirst }}" required />
+                    </div>
+
+                    <div class="phone me-3 ms-5 ">
+                        <input class="form-control" type="tel" name="phone" id="phone" placeholder="Phone Number"
+                            value="{{ request.user.phone }}" required>
+                    </div>
+
+                    <div class="bio ms-1 me-3 mb-4">
+                        <h4>Bio</h4>
+                        <input class="form-control" type="text" name="bio" id="bio" value="{{ request.user.bio }}">
+                    </div>
+
+                    <div class="company ms-1 mb-4 me-5">
+                        <h4>Company Name</h4>
+                        <input class="form-control" type="text" name="company" id="company"
+                            value="{{ request.user.company }}">
+                    </div>
+                    <div class="text-center mt-4 mb-3">
+                        <button class="btn  btn-success" type="submit">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="col col-md-6 col-lg-4 col-xl-">
+
+        <section class="right">
+
+            <a href="/post" class="btn mt-2  mb-3 d-grid mx-4 rounded text-center p-3  btn-primary mb-3 ">
+                <h5>
+                    Click here to post
+                </h5>
+            </a>
+
+            <div class="posts">
+                {% if not request.user.posts %}
+                <p>Your don't have any post.</p>
+                {% else %}
+
+                {% for post in request.user.posts.all %}
+                <div class="card bg-light shadow-lg mb-1 mx-4">
+
+                    <div class="card-body p-0">
+                        <div class="card-title mb-0 d-flex justify-content-between">
+                            <div class=" ms-3 m-1 p-0 d-flex flex-row  ">
+                                <img class="rounded-circle mt-3 " src="{{ post.poster.profile_picture.url }}"
+                                    width="60px" height="60px" />
+                                <div class="mt-0 mb-4 d-flex flex-column m-2 mt-4">
+                                    <a class="fw-bold" href={% url 'others_profile' post.poster.username %}
+                                        style="text-decoration: none; color: black; font-size: small; ">
+                                        {{post.poster.fullname|title }}</a>
+                                    <a style="font-size: 13px;">{{post.posted_date|date:"M d, Y"}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="commodity_name mb-1 ms-4">
+                        <b>Name:</b> {{ post.commodity_name }}
+                    </div>
+
+                    <div class="description ms-4">
+                        <b>Description:</b> {{ post.description }}
+                    </div>
+
+                    <div class="ms-3 me-3 mt-3 fluid-content">
+                        <img class="img-fluid" src="{{ post.image.url }} " />
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <span class="mb-4 mt-1 "> <b>Category:</b> {{ post.category|title }}</span>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-lg mb-4 me-4 btn-outline-primary"><a href={% url 'edit_post' post.id %}
+                                style="color: black; text-decoration: none;">EDIT</a></button>
+
+                        <button class="btn btn-lg mb-4 btn-outline-danger"><a href={% url 'delete_post' post.id %}
+                                style="color: black; text-decoration: none;">DELETE</a></button>
+                    </div>
+
+                </div>
+
+
+                {% endfor %}
+
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</div>
+
+{% endblock main_content %}
+
+{% block scripts %}
+<script src="{% static 'js/edit_profile.js' %}"></script>
+{% endblock scripts %}

@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.poster.firstName|capfirst }}'s Post{% endblock title %}
+
+{% block main_content %}
+
+
+<div class="row g-0 mt-4 d-flex justify-content-center align-items-center ">
+    <div class="col-10 col-sm-8 col-lg-7 col-xl-6 col-xxl-4">
+        <div class="card bg-light shadow-lg mb-1 mx-4">
+            <div class="card-body p-0">
+                <div class="card-title mb-0 d-flex justify-content-between">
+                    <div class=" ms-3 m-1 p-0 d-flex flex-row  ">
+                        <img class="rounded-circle mt-3 " src="{{ post.poster.profile_picture.url }}" width="60px"
+                            height="60px" />
+                        <div class="mt-0 mb-4 d-flex flex-column m-2 mt-4">
+                            <a class="fw-bold" href={% url 'others_profile' post.poster.username %}
+                                style="text-decoration: none; color: black; font-size: small; ">
+                                {{post.poster.fullname|title }}</a>
+                            <a style="font-size: 13px;">{{post.posted_date|date:"M d, Y"}}</a>
+                        </div>
+                    </div>
+
+                    {% if post.poster.username != request.user.username %}
+                    <span class="mb-5 mt-3 me-3 ">
+                        <button class="btn fw-bold  btn-sm btn-light" data-bs-toggle="modal"
+                            data-bs-target="#offer-modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                            </svg>
+                        </button>
+                        <form action="" method="post">
+                            <div class="modal fade" id="offer-modal" tabindex="-1" aria-labelledby="modal-title"
+                                aria-hidden="true">
+                                <div class="modal-dialog rounded  modal-dialog-scrollable modal-dialog-centered">
+                                    <div class="modal-content ">
+                                        <div class="modal-header  ">
+                                            <div class=" ms-5 modal-title">
+                                                <h1 class="ms-5 mb-3 ps-4">Select an item</h1>
+                                            </div>
+                                            <button type="button" class="btn-close mb-4 me" data-bs-dismiss="modal"
+                                                aria-label="close"></button>
+                                        </div>
+
+                                        <div class="modal-body text-center">
+
+                                            {% csrf_token %}
+
+                                            <!-- Options to choose for an offer -->
+                                            {% for offer in request.user.posts.all %}
+                                            <input type="hidden" name="post" value="{{ post.id }}">
+                                            <input class="btn-check " type="radio" autocomplete="off"
+                                                id="{{ offer.id }}" name="offer" value="{{ offer.id }}" />
+                                            <label class="btn " for="{{ offer.id }}">
+                                                <div class=""><img class="img-fluid" src="{{ offer.image.url }}"
+                                                        style="max-height: 50%; max-width: 100%; border-radius: 4px" />
+                                                </div>
+                                                <div class="post-name">{{ offer.commodity_name|capfirst }} </div>
+                                            </label>
+
+                                            {% endfor %}
+
+                                        </div>
+                                        <div class="modal-footer border-0 justify-content-center">
+
+                                            <button type="submit" class="btn btn-lg btn-success" name="submit"
+                                                value="send-offer">Send</button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </span>
+
+                    {% endif %}
+                </div>
+
+                <div class="commodity_name mb-1 ms-4 fs-5">
+                    <span class="fw-bold ">Name:</span> {{ post.commodity_name }}
+                </div>
+
+                <div class="description ms-4 fs-5">
+                    <span class="fw-bold">Description:</span> {{ post.description }}
+                </div>
+
+                <div class="ms-3 me-3 mt-3 text-center ">
+                    <img class=" img-fluid " src=" {{ post.image.url }} " />
+                </div>
+
+
+                <div class=" d-flex justify-content-center fs-5">
+                    <span class="mb-4 mt-1 "><span class="fw-bold">Category:</span> {{ post.category|capfirst }}</span>
+                </div>
+            </div>
+
+            <div class="text-center">
+                {% if request.user.username == post.poster.username %}
+
+                <button class="btn btn-lg mb-4 me-5 btn-outline-primary"><a style="color: black; text-decoration: none;"
+                        href={% url 'edit_post' post.id %}>EDIT</a></button>
+
+                <button class="btn btn-lg mb-4 btn-outline-danger"><a style="color: black; text-decoration: none;"
+                        href={% url 'delete_post' post.id %}>DELETE</a></button>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock main_content %}

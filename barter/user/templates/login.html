@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barter - Log In</title>
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+
+<body class="vh-100">
+
+    <header class="d-flex align-items-center justify-content-center" style="background-color: #1D4365;  ">
+        <div class="header d-flex  align-items-center justify-content-center ">
+            <div class="d-flex align-itmes-center justify-content-center">
+                <a class="d-flex align-itmes-center justify-content-center"
+                    style="text-decoration: none; color: white; " href={% url 'home' %}>
+                    <img class="logo-image " style="width: 160px; height: 100px;" src="{% static 'images/logo.png' %}"
+                        alt="logo">
+                    <p class="d-inline pt-4 ">Barter</p>
+                </a>
+
+            </div>
+
+        </div>
+    </header>
+
+
+
+    <main style="margin-top: 200px">
+        <div class="row g-0 align-items-center justify-content-center"
+            style=" margin-top: 85px; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+
+            <div class="col-10 col-sm-8 col-md-6 col-lg-5 col-xl-4 col-xxl-3 ">
+
+                <div style="background:#fcf8f8; border-radius: 35px;" class="card   pt-4 px-5 ">
+
+                    <div class="card-body  text-center">
+
+                        <div class="card-title text-center font-weight-bold mb-5">
+
+                            <h2 style="font-family:Verdana, Geneva, Tahoma, sans-serif;">Sign in</h2>
+                        </div>
+
+                        <form action="" method="post">
+
+                            <div class="input-group mt-4">
+
+                                <input style="background-color: #C4C4C4 ;" class="form-control rounded-pill" type="text"
+                                    name="username" id="username" placeholder="Username" value="{{ username }}"
+                                    required>
+                            </div>
+
+                            <div class="input-group mt-4">
+
+                                <input style="background-color: #C4C4C4 ;" class="form-control rounded-pill"
+                                    type="password" name="password" id="password" placeholder="Password" required>
+                            </div>
+
+                            {% if error %}
+                            <div class="error">Your password and username doesn't match</div>
+                            {% endif %}
+
+                            <input class="btn btn-lg btn-success  mb-4 mt-5" type="submit" value="Sign in">
+
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <p>Don't have an account? <a href={% url 'signup' %}>Sign up</a></p>
+                            </div>
+
+                            {% csrf_token %}
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    </main>
+
+
+
+
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}">
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2 @@
+1, add date of post to post card
+2, 

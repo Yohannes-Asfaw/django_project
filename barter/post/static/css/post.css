@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Rochester&display=swap');
+
+body{
+    margin: 0px;
+}
+header{
+    background-color: #1D4365;
+    margin-bottom: 5vh;
+}
+.header{
+    width: 100%;
+    margin: auto;
+    color: white;
+    display: flex;
+}
+.logo{
+    width: 10%;
+    margin-left: 4%;
+}
+.logo-image{
+    width: 100%;
+}
+.header p{
+    text-align: center;
+    margin:0px;
+    font-family: 'Rochester', cursive;
+    font-size: 2em;
+    opacity: 0.8;
+}
+.c{
+    width: 50%;
+    margin: auto;
+}
+.card{
+    background-color: #F8F5F5 !important;
+}
+.button{
+    width: 30%;
+    margin: auto;
+}
+.button input{
+    background-color: #1FB42E;
+    color: white;
+    border-radius: 10px;
+    width: 100%;
+    border: none;
+    font-size: 1.2em;
+}
+footer{
+    background-color: rgb(26, 25, 25);
+    color: white;
+    margin-top: 2%;
+}
+footer p{
+    opacity: 0.8;
+}
